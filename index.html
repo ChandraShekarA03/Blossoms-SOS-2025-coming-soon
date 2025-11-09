@@ -1,269 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Blossoms 2025 — Stay Tuned</title>
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <!-- Fonts: Great Vibes (script) + Manrope (modern) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-  <style>
-    /* --- Base --- */
-    :root{
-      --bg-dark:#0b0210;
-      --neon-1: #ff66b2;
-      --neon-2: #9b8cff;
-      --neon-3: #62e7ff;
-    }
-
-    html,body{height:100%;}
-    body{
-      margin:0;
-      font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(155,140,255,0.06), transparent),
-                  radial-gradient(1000px 500px at 90% 90%, rgba(98,231,255,0.03), transparent),
-                  linear-gradient(180deg,var(--bg-dark) 0%, #140219 100%);
-      color:white;
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    /* --- Subtle animated neon wash behind content --- */
-    .neon-wash{
-      position:fixed; inset:0; z-index:0; pointer-events:none; mix-blend-mode:screen;
-      background: conic-gradient(from 120deg at 50% 50%, rgba(155,140,255,0.08), rgba(255,102,178,0.06), rgba(98,231,255,0.05));
-      filter: blur(60px) saturate(1.2);
-      animation: washMove 18s linear infinite;
-    }
-    @keyframes washMove{
-      0%{transform:translate3d(0,0,0) rotate(0deg)}
-      50%{transform:translate3d(20px,-10px,0) rotate(8deg)}
-      100%{transform:translate3d(0,0,0) rotate(0deg)}
-    }
-
-    /* --- Particle / Petal container (behind content) --- */
-    #particles{
-      position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
-    }
-    .petal{
-      position:absolute; top:-40px; width:var(--s); height:calc(var(--s) * 0.6);
-      background: linear-gradient(120deg, rgba(255,255,255,0.18), rgba(255,182,193,0.18));
-      border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
-      transform-origin:center;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35), 0 0 18px rgba(155,140,255,0.04);
-      will-change: transform, opacity;
-      mix-blend-mode: screen;
-      opacity:0;
-      backdrop-filter: blur(2px);
-    }
-
-    /* --- Main layout container --- */
-    .page{
-      position:relative; z-index:10; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
-    }
-
-    .card{
-      position:relative; width:100%; max-width:800px; padding:32px; border-radius:20px;
-      display:flex; gap:20px; align-items:center; justify-content:center; flex-direction:column;
-      text-align:center; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 10px 40px rgba(3,0,12,0.65), inset 0 1px 0 rgba(255,255,255,0.02);
-      backdrop-filter: blur(6px) saturate(1.05);
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-
-    /* --- Title styles --- */
-    .title{
-      font-family: 'Great Vibes', cursive; font-size: clamp(42px, 7.5vw, 96px); line-height:0.9; letter-spacing: -1px;
-      background: linear-gradient(90deg, var(--neon-1), var(--neon-2), var(--neon-3));
-      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow: 0 6px 30px rgba(155,140,255,0.12), 0 2px 8px rgba(0,0,0,0.6);
-      margin:20px 0 0 0; padding-top: 10px;
-    }
-
-    .subtitle{
-      font-weight:600; opacity:0.9; color:rgba(255,255,255,0.88); font-size:clamp(14px,2.5vw,20px);
-    }
-
-    /* --- Logo circle (replace dashed—no overlays) --- */
-    .logo{
-      width:180px; height:180px; border-radius:9999px; display:flex; align-items:center; justify-content:center;
-      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border: 1px solid rgba(155,140,255,0.12);
-      box-shadow: 0 10px 30px rgba(98,231,255,0.03), 0 6px 18px rgba(155,140,255,0.04);
-      backdrop-filter: blur(6px);
-      transform-style:preserve-3d;
-      animation: bloom 4s ease-in-out infinite alternate;
-    }
-    @keyframes bloom {
-      0% { transform: scale(1); box-shadow: 0 10px 30px rgba(98,231,255,0.03), 0 6px 18px rgba(155,140,255,0.04); }
-      100% { transform: scale(1.1); box-shadow: 0 15px 40px rgba(98,231,255,0.1), 0 10px 25px rgba(155,140,255,0.1); }
-    }
-    .logo .mark{
-      width:120px; height:120px; border-radius:9999px; display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(90deg,var(--neon-2),var(--neon-1));
-      color:#fff; font-weight:700; font-size:26px; font-family: 'Manrope', sans-serif;
-      box-shadow: 0 6px 18px rgba(155,140,255,0.18), 0 0 20px rgba(155,140,255,0.12);
-      object-fit: cover;
-    }
-
-    /* --- Animated 'Stay Tuned' --- */
-    .cta{
-      font-family:'Great Vibes', cursive; font-size:clamp(34px,6vw,80px); margin:6px 0 0 0; letter-spacing:-1px;
-      background: linear-gradient(90deg,#fff, #ffd6ea 40%, #cff8ff 90%);
-      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-      filter: drop-shadow(0 10px 30px rgba(236,72,153,0.06));
-    }
-
-    /* small hint text */
-    .hint{font-size:14px; color:rgba(255,255,255,0.6); margin-top:8px}
-
-    /* instagram CTA */
-    .follow-btn{ display:inline-flex; gap:12px; align-items:center; padding:12px 22px; border-radius:999px; background:linear-gradient(90deg, rgba(255,102,178,0.14), rgba(155,140,255,0.08)); border:1px solid rgba(255,255,255,0.04); }
-
-    /* floating subtle glow */
-    .glow{ box-shadow: 0 10px 40px rgba(98,231,255,0.04), inset 0 1px 0 rgba(255,255,255,0.02); }
-
-    /* responsive */
-    @media (min-width:768px){ .card{flex-direction:column;padding:32px;} }
-    @media (max-width:767px){ .card{gap:16px; padding:24px;} .logo{width:140px; height:140px;} .logo .mark{width:90px; height:90px;} }
-
-    /* remove extra overlay artifacts older designs sometimes leave (explicitly) */
-    .overlay, .dashed, .ghost{ display:none !important; }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blossoms Animation</title>
+    <!-- Link to the CSS stylesheet -->
+    <link rel="stylesheet" href="styleindex.css">
+    <!-- Icon library for trophies & footer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-  <!-- Neon wash + particles behind everything -->
-  <div class="neon-wash" aria-hidden="true"></div>
-  <div id="particles" aria-hidden="true"></div>
+    <!-- 
+      Scene 1: Flower particles container
+    -->
+    <div id="flower-particles-container"></div>
 
-  <main class="page">
-    <section class="card" id="card">
-
-      <div id="top" class="text-center mb-6">
-        <h1 class="title" id="title">Blossoms 2025–26</h1>
-        <p class="subtitle">School of Sciences - Team Onyx</p>
-      </div>
-
-      <div class="flex justify-center mb-6">
-        <div class="logo glow" id="logo">
-          <img src="blossoms logo.png" alt="Blossoms Logo" class="mark">
+    <!--
+      Header (Final State)
+      This is the same header from winners.html, but without the
+      '.logo-center' or '.animation-element' classes, so it
+      loads instantly.
+    -->
+    <header id="main-header">
+        <!-- The logo container will handle the scaling animation -->
+        <div id="logo-container">
+            <!-- This is your actual logo image -->
+            <img src="blossoms_logo.png" alt="Blossoms Logo" id="blossoms-logo">
         </div>
-      </div>
 
-      <div id="middle" class="mt-6">
-        <h2 class="cta" id="stay">Stay Tuned</h2>
-        <p class="hint">Follow us for event updates, schedules and surprises ✨</p>
-      </div>
+        <!-- The nav links are hidden until Scene 4 -->
+        <nav id="main-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html#events">Events</a>
+            <a href="schedule.html">Schedules</a>
+            <a href="winners.html">Winners</a>
+        </nav>
 
-      <div class="mt-8">
-        <a id="insta" class="follow-btn" href="https://www.instagram.com/blossoms_sos?igsh=MTkxejVnaW5laWNlaA==" target="_blank" rel="noopener noreferrer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
-          <span>Follow us on Instagram</span>
-        </a>
-      </div>
+        <!-- NEW: Collage Logo Container -->
+        <div id="collage-logo-container">
+            <img src="Christ_logo.png" alt="Collage Logo" id="collage-logo">
+        </div>
+    </header>
 
-    </section>
-  </main>
+    <!-- 
+      Main Page Content
+      UPDATED: Removed 'animation-element' class.
+    -->
+    <main id="main-content">
+        
+        <!-- 
+          Hero Section (The original content) 
+          UPDATED: Added 'animation-element' class so it fades in first.
+        -->
+        <section id="hero" class="animation-element">
+            <div id="hero-content">
+                <h1 id="main-title">Blossoms</h1>
+                <div id="subtitle-logo">
+                    <h2 id="sub-title">School of Sciences </h2>
+                    <img src="blossoms_team.png" alt="Team Logo" id="team-logo"><br>
+                </div>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeFKorn7aP-rWXOkLGzED0MBoe9TDMcE8Rzf-tjaJrBP936zA/viewform?usp=sharing&ouid=114906650785065612305" target="_blank" id="register-button">Register Now</a>
 
-  <!-- --- JS: particles, mouse-parallax, GSAP entrances/looping --- -->
-  <script>
-    // utilities
-    const rand = (min,max)=> Math.random() * (max-min) + min;
+            <!-- NEW: Image Placeholder -->
+            <div class="hero-image-placeholder">
+                <!-- 
+                  This is the placeholder for your "Flames to Flight" image. 
+                  Replace the 'src' with your PNG file path.
+                -->
+                <img src="blossoms_slogan.png" alt="Blossoms Fest Highlights" id="team-slogan">
+            </div>
+            <!-- END: Image Placeholder -->
 
-    // Create petals
-    const petalCount = 60;
-    const particles = document.getElementById('particles');
+        </section>
+        <p class="registration-text" style="margin-top: 30px; font-size: 1.5rem;">
+            Know more about Blossoms 2025 here!!
+        </p>
+        <!-- New Posters Section -->
+        <section id="posters-section" class="content-section animate-on-scroll">
+            <div class="posters-container">
+                <div class="poster poster-left">
+                    <a href="https://www.canva.com/design/DAG3QRRsCDk/aPmAeYyCw9B-Q3pigaoNBQ/edit?utm_content=DAG3QRRsCDk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">
+                        <img src="blossoms_rulebook.png" alt="Poster 1">
+                    </a>
+                </div>
+                <div class="poster poster-right">
+                    <a href="blossoms_knowmore.pdf" target="_blank">
+                        <img src="blossoms_knowmore.png" alt="Poster 2">
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    for(let i=0;i<petalCount;i++){
-      const el = document.createElement('div');
-      el.className = 'petal';
-      const size = Math.round(rand(12,28));
-      el.style.setProperty('--s', size + 'px');
-      // start horizontal position
-      const startLeft = rand(-10,110);
-      el.style.left = startLeft + '%';
+        <!--
+          MOVED: Events Hint Section
+          UPDATED: Added 'animate-on-scroll' class
+        -->
+        <section id="events-hint" class="content-section animate-on-scroll">
+            <h2 class="section-title"></h2>
+            <div class="event-images-marquee">
+                <div class="event-images-track">
+                    <!-- Placeholder images for previous events -->
+                    <img src="assets/Core.JPG" alt="Previous Event 1">
+                    <img src="assets/cult.JPG" alt="Previous Event 2">
+                    <img src="assets/cult1.JPG" alt="Previous Event 3">
+                    <img src="assets/cult2.JPG" alt="Previous Event 4">
+                    <img src="assets/cult3.JPG" alt="Previous Event 5">
+                    <!-- Duplicate for seamless loop -->
+                    <img src="Assets/IMG_0821.JPG" alt="Previous Event 1">
+                    <img src="Assets/IMG_0948.JPG" alt="Previous Event 2">
+                    <img src="Assets/sos.JPG" alt="Previous Event 3">
+                    <img src="Assets/cult1.JPG" alt="Previous Event 4">
+                    <img src="Assets/cult.JPG" alt="Previous Event 5">
+                </div>
+            </div>
+            <!-- NEW: Added registration text -->
+            <p class="registration-text" style="margin-top: 30px; font-size: 1.5rem;">
+                Register now for the events, slots are open!!
+            </p>
+            <a href="#events" class="inline-button" style="margin-top: 10px;">See All Events</a>
+        </section>
 
-      // color variants
-      const pal = [
-        'linear-gradient(120deg, rgba(255,182,193,0.22), rgba(255,255,255,0.12))',
-        'linear-gradient(120deg, rgba(233,175,255,0.22), rgba(255,255,255,0.12))',
-        'linear-gradient(120deg, rgba(98,231,255,0.12), rgba(255,255,255,0.06))',
-      ];
-      el.style.background = pal[Math.floor(Math.random()*pal.length)];
 
-      particles.appendChild(el);
+        <!-- 
+          About Blossoms Section 
+          UPDATED: Added 'animate-on-scroll' class
+        -->
+        <section id="about-blossoms" class="content-section animate-on-scroll">
+            <h2 class="section-title">About Blossoms</h2>
+            
+            <!-- NEW: Two-column layout for About -->
+            <div class="about-container">
+                <div class="about-text">
+                    
+                    <p class="description">
+                        Blossoms is the intra-deanery cultural fest at Christ (Deemed To Be University) Bangalore with the motto ‘Be the best’. This is a unique venture where all 7000 students of Christ University, Bangalore participate in a cultural event. The events are divided into four categories - Art, Theatre, Stage & Literary. Students compete in multiple events across these categories. The winners lay their hands on the Inter-Deanery trophy for Artistic Excellence and Service.
+                    </p>
+                </div>
+                <div class="about-video">
+                    <video autoplay muted loop poster="https://placehold.co/600x400/ec407a/white?text=About+Video">
+                        <source src="blossoms-24.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
 
-      // Animate each petal using GSAP for more natural motion
-      gsap.to(el, {
-        y: rand(innerHeight * 0.6, innerHeight + 200),
-        x: `+=${rand(-120,120)}`,
-        rotation: rand(90,720),
-        duration: rand(8,16),
-        delay: rand(0,6),
-        ease: 'power1.out',
-        repeat: -1,
-        repeatDelay: rand(1,4),
-        opacity: rand(0.6,1),
-        // slightly stagger start to avoid uniformity
-      });
-    }
+        <!-- 
+          Achievements Section 
+          (Left unchanged, has its own custom animation ID)
+        -->
+        <section id="achievements" class="content-section">
+            <h2 class="section-title">Our Achievements</h2>
+            <div class="trophy-container">
+                <div class="trophy-card">
+                    <!-- UPDATED: Replaced icon with image -->
+                    <img src="3rd.png" alt="3rd Place Trophy" class="trophy-image">
+                    <h3>Procession</h3>
+                    <p>Third Place</p>
+                </div>
+                <div class="trophy-card">
+                    <!-- UPDATED: Replaced icon with image -->
+                    <img src="2nd.png" alt="2nd Place Trophy" class="trophy-image">
+                    <h3>'We the Best' Trophy</h3>
+                    <p>Second Place</p>
+                </div>
+                <div class="trophy-card">
+                    <!-- UPDATED: Replaced icon with image -->
+                    <img src="2nd.png" alt="2nd Place Trophy" class="trophy-image">
+                    <h3>Inauguration</h3>
+                    <p>Second Place</p>
+                </div>
+            </div>
+        </section>
+        
+        <!--
+            UPDATED: Original Events Hint Section
+            UPDATED: Added 'animate-on-scroll' class
+        -->
+        <section id="events" class="content-section animate-on-scroll">
+            <h2 class="section-title">Event Categories</h2>
 
-    // GSAP Entrance timeline
-    const tl = gsap.timeline({defaults:{ease:'power3.out'}});
-    tl.from('#card', {scale:0.96, opacity:0, duration:0.9})
-      .from('#title', {y:18, opacity:0, duration:0.8}, '-=0.6')
-      .from('#logo', {scale:0.8, rotationY: -20, duration:0.9, ease:'back.out(1.7)'}, '-=0.6')
-      .from('#stay', {y:10, opacity:0, duration:0.9, ease:'elastic.out(1,0.6)'}, '-=0.4')
-      .from('#insta', {y:8, opacity:0, duration:0.6}, '-=0.6');
+            <!-- Simplified: Just the card stack -->
+            <div class="card-stack-container">
+                <div class="card-stack" id="event-card-stack">
+                    <!-- Card 1 -->
+                    <div class="card-stack_item" data-event-name="Art">
+                        <div class="card-content">
+                            <img src="art.jpg" alt="Art">
+                            <a href="event1.html" class="inline-button" style="margin-top: 3%;">View Art Events</a>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="card-stack_item" data-event-name="Literary">
+                        <div class="card-content">
+                            <img src="literary.jpg" alt="Literary">
+                            <a href="event2.html" class="inline-button" style="margin-top: 3%">View Literary Events</a>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="card-stack_item" data-event-name="Music">
+                        <div class="card-content">
+                            <img src="music.jpg" alt="Music">
+                            <a href="event3.html" class="inline-button" style="margin-top: 3%">View Music Events</a>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="card-stack_item" data-event-name="Theatre">
+                        <div class="card-content">
+                            <img src="theater.jpg" alt="Theatre">
+                            <a href="event4.html" class="inline-button" style="margin-top: 3%">View Theatre Events</a>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="card-stack_item" data-event-name="Dance">
+                        <div class="card-content">
+                            <img src="dance.jpg" alt="Dance">
+                            <a href="event5.html" class="inline-button" style="margin-top: 3%">View Dance Events</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    // looping micro-animations
-    gsap.to('#stay', {scale:1.02, textShadow:'0 0 18px rgba(255,102,178,0.14)', duration:2.4, yoyo:true, repeat:-1, ease:'sine.inOut'});
-    gsap.to('#logo', {rotationY:5, yoyo:true, repeat:-1, duration:6, ease:'sine.inOut'});
-    gsap.to('#title', {textShadow:'0 0 20px rgba(155,140,255,0.2)', duration:3, yoyo:true, repeat:-1, ease:'sine.inOut'});
+            <!-- Navigation (Dots & Arrows) -->
+            <div class="card-stack-navigation">
+                <button id="card-stack-prev" aria-label="Previous card"><i class="fas fa-chevron-left"></i></button>
+                <div class="card-stack-dots" id="card-stack-dots">
+                    <!-- Dots will be added by JS -->
+                </div>
+                <button id="card-stack-next" aria-label="Next card"><i class="fas fa-chevron-right"></i></button>
+            </div>
 
-    // interactive mouse parallax (applies subtle transforms to card and logo)
-    const card = document.getElementById('card');
-    const logo = document.getElementById('logo');
+        </section>
 
-    window.addEventListener('mousemove', (e)=>{
-      const cx = innerWidth/2; const cy = innerHeight/2;
-      const dx = (e.clientX - cx) / cx; // -1 .. 1
-      const dy = (e.clientY - cy) / cy;
+        <!--
+          Meet Our Team Section
+          COMMENTED OUT: Not required now, will add later
+        -->
+        <!--
+        <section id="team" class="content-section animate-on-scroll">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <!-- Add 10 placeholder team members (5*2 for seamless loop) 
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/ec407a/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 3 B.Sc. Psy</p>
+                        <p>Position: Core</p>
+                        <p>Role: Event Head</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/8e24aa/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 2 M.Sc. CS</p>
+                        <p>Position: Core</p>
+                        <p>Role: Design Head</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/d81b60/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 3 B.Sc. Eco</p>
+                        <p>Position: Volunteer</p>
+                        <p>Role: Logistics</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/ad1457/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 1 M.A. Eng</p>
+                        <p>Position: Core</p>
+                        <p>Role: Content Head</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/5c2a4d/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 2 B.A. Psy</p>
+                        <p>Position: Volunteer</p>
+                        <p>Role: Hospitality</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <!-- Duplicate for seamless loop 
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/ec407a/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 3 B.Sc. Psy</p>
+                        <p>Position: Core</p>
+                        <p>Role: Event Head</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/8e24aa/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 2 M.Sc. CS</p>
+                        <p>Position: Core</p>
+                        <p>Role: Design Head</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/d81b60/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 3 B.Sc. Eco</p>
+                        <p>Position: Volunteer</p>
+                        <p>Role: Logistics</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/ad1457/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 1 M.A. Eng</p>
+                        <p>Position: Core</p>
+                        <p>Role: Content Head</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://placehold.co/100x100/5c2a4d/white?text=Team" alt="Team Member">
+                        <h3>Member Name</h3>
+                        <p>Class: 2 B.A. Psy</p>
+                        <p>Position: Volunteer</p>
+                        <p>Role: Hospitality</p>
+                        <p>Contact: +91 1234567890</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        -->
 
-      // card tilt
-      gsap.to(card, {rotationY: dx * 4, rotationX: dy * -3, transformPerspective:800, duration:0.8, ease:'power2.out'});
-      // logo moves a little more
-      gsap.to(logo, {x: dx * 14, y: dy * 8, duration:0.9, ease:'power2.out'});
+    </main>
 
-      // parallax wash shift
-      gsap.to('.neon-wash', {x: dx * -30, y: dy * -20, duration:1.2, ease:'power2.out'});
-    });
+    <!-- 
+      NEW: Redesigned Footer Section 
+      UPDATED: Added 'animate-on-scroll' class
+    -->
+    <footer class="animate-on-scroll">
+        <div class="footer-container">
+            <!-- Column 1: Logo and About -->
+            <div class="footer-column about">
+                <div class="footer-logo">
+                    <img src="blossoms_logo.png" alt="Blossoms Logo">
+                    <h3>Blossoms 2025</h3>
+                </div>
+                <p>
+                    Blossoms is the intra-deanery cultural fest at Christ (Deemed To Be University) Bangalore, School of Sciences.
+                </p>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#events">Events</a></li>
+                    <li><a href="schedule.html">Schedules</a></li>
+                    <li><a href="winners.html">Winners</a></li>
+                </ul>
+            </div>
 
-    // make sure animations adapt on resize
-    window.addEventListener('resize', () => {
-      // optional: could adjust particle targets, but GSAP auto-updates positions
-    });
+            <!-- Column 3: Socials and Contact -->
+            <div class="footer-column social">
+                <h4>Follow Us</h4>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/blossoms_sos/?hl=en" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/www.christuniversity.in" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/school/christ-university-bangalore/posts/?feedView=all" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <h4>Contact</h4>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i> 
+                    Christ (Deemed To Be University), Bangalore
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    blossoms.sos@christuniversity.in
+                </p>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>
+                © 2025 Blossoms - School of Sciences, Christ (Deemed To Be University). All rights reserved.
+            </p>
+        </div>
+    </footer>
 
-    // Accessibility: reduce motion respects
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if(prefersReduced && prefersReduced.matches){
-      gsap.globalTimeline.timeScale(1.6);
-      document.querySelectorAll('.petal').forEach(el=>el.style.opacity = 0.9);
-    }
 
-  </script>
+    <!-- Modal for image display -->
+    <div id="image-modal" class="modal">
+        <span class="close-modal" onclick="closeImageModal()">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+
+    <!-- Link to the JavaScript file -->
+    <!-- 'defer' ensures it runs after the HTML is parsed -->
+    <script src="scriptindex.js" defer></script>
 </body>
 </html>
+
