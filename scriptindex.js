@@ -167,6 +167,8 @@ window.addEventListener('load', () => {
 
         // Navigation dots
         const dotsContainer = document.getElementById('card-stack-dots');
+        if (!dotsContainer) return; // Don't run if dots container doesn't exist
+        
         let dots = []; // To store the dot elements
 
         let activeIndex = 0; // Tracks the current active card
@@ -221,7 +223,7 @@ window.addEventListener('load', () => {
             const eventName = activeCard.getAttribute('data-event-name');
             const details = activeCard.querySelector('.card-details'); // Get hidden details
 
-            if (details) {
+            if (details && detailTitle && detailCategories && detailButtonContainer) {
                 // Get only the p content (description)
                 const categoriesText = details.querySelector('p').innerHTML;
                 const button = details.querySelector('a').cloneNode(true); // Clone button
@@ -237,22 +239,28 @@ window.addEventListener('load', () => {
         }
 
         // --- Event Listeners for Buttons ---
-        nextButton.addEventListener('click', () => {
-            activeIndex = (activeIndex + 1) % cards.length; // Move next, wrap to start
-            updateCardStack();
-        });
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                activeIndex = (activeIndex + 1) % cards.length; // Move next, wrap to start
+                updateCardStack();
+            });
+        }
 
-        prevButton.addEventListener('click', () => {
-            activeIndex = (activeIndex - 1 + cards.length) % cards.length; // Move prev, wrap to end
-            updateCardStack();
-        });
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                activeIndex = (activeIndex - 1 + cards.length) % cards.length; // Move prev, wrap to end
+                updateCardStack();
+            });
+        }
 
         // Set the initial state (show card 1)
         updateCardStack();
     }
 
-    // Initialize the event card stack
-    initCardStack('event-card-stack');
+    // Initialize the event card stack (only if it exists)
+    if (document.getElementById('event-card-stack')) {
+        initCardStack('event-card-stack');
+    }
 
 
     // ==========================================
