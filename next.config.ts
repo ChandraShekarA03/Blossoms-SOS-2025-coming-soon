@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  experimental: {
+    cpus: 1,
+  },
+  distDir: process.env.NEXT_DIST_DIR || '.next',
 };
 
 export default nextConfig;

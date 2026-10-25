@@ -1,286 +1,682 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { HeroBackground } from '@/components/hero/HeroBackground';
-import { EVENT_CATEGORIES } from '@/content/events';
-import { EDITIONS } from '@/content/editions';
-import { ArrowRight, Trophy, Calendar, Award, ShieldCheck } from 'lucide-react';
+import { siteConfig } from '@/data/site-config';
+import { 
+  ArrowRight, 
+  ExternalLink, 
+  Sparkles, 
+  Calendar, 
+  FileText 
+} from 'lucide-react';
+
+const MARQUEE_IMAGES = [
+  { src: '/Assets/IMG_0821.JPG', alt: 'Blossoms Fest Stage Performance' },
+  { src: '/Assets/IMG_0948.JPG', alt: 'School of Sciences Cultural Ensemble' },
+  { src: '/Assets/sos.JPG', alt: 'School of Sciences Team Celebrations' },
+  { src: '/Assets/cult1.JPG', alt: 'Dance and Theatrical Performance' },
+  { src: '/Assets/cult.JPG', alt: 'Vibrant Audience & Cheer' },
+  { src: '/Assets/Core.JPG', alt: 'Blossoms Student Core Committee' },
+  { src: '/Assets/cult2.JPG', alt: 'Music & Battle of the Bands' },
+  { src: '/Assets/cult3.JPG', alt: 'Fest Procession & Accolades' },
+];
 
 export default function HomePage() {
-  const upcomingEdition = EDITIONS['2026'];
-  const archive2025 = EDITIONS['2025'];
-
   return (
-    <div className="flex flex-col bg-[#140F0D] text-[#FAF5F0]">
-      {/* 1. HERO SECTION: Corporate Brown (#140F0D) with React Bits GhostFibers */}
+    <div className="flex flex-col bg-[#101827] text-[#FFFFFF]">
+      {/* =========================================================
+          1. HERO SECTION
+          ========================================================= */}
       <section aria-labelledby="hero-heading" className="relative">
         <HeroBackground>
-          <div className="max-w-4xl flex flex-col items-start gap-8">
-            {/* Minimalist Status Badge */}
-            <div className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#1C1512]/90 border border-[#FAF5F0]/15 text-xs font-medium text-[#C4B4A7] backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C28854] animate-pulse" />
+          <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-6 pt-10 sm:pt-14 pb-8">
+            
+            {/* Status Announcement Badge */}
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#162032]/85 border border-[#C7D1DD]/25 text-xs font-semibold text-[#D1FF42] backdrop-blur-md shadow-md animate-in fade-in duration-500">
               <span className="tracking-wide">
-                {upcomingEdition.title} • Official Theme & Dates Pending Circular Release
+                CHRIST (Deemed to be University) • School of Sciences
               </span>
             </div>
 
-            {/* Display Editorial Headline */}
-            <div className="space-y-4">
-              <span className="block text-xs uppercase tracking-[0.25em] text-[#C28854] font-semibold">
-                School of Sciences • Annual Inter-Deanery Cultural Fest
-              </span>
+            {/* Main Title & Team Insignia */}
+            <div className="space-y-3">
               <h1 
                 id="hero-heading" 
-                className="text-4xl sm:text-6xl lg:text-7xl font-serif tracking-tight text-[#FAF5F0] leading-[1.08]"
+                className="text-5xl sm:text-7xl lg:text-8xl font-sans font-black tracking-tight text-[#FFFFFF] leading-none"
               >
-                Where Scientific Rigor Meets Artistic Grace.
+                Blossoms
               </h1>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#D1FF42] via-[#C7D1DD] to-[#FFFFFF] tracking-tight">
+                  School of Sciences
+                </h2>
+                
+                {/* Team Onyx Emblem Badge */}
+                <div className="relative h-10 w-36 sm:h-12 sm:w-44 flex items-center justify-center">
+                  <Image
+                    src="/blossoms_team.png"
+                    alt="Team Onyx Logo"
+                    fill
+                    className="object-contain drop-shadow-[0_2px_8px_rgba(209,255,66,0.25)]"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Subtitle */}
-            <p className="text-base sm:text-xl text-[#C4B4A7] max-w-2xl leading-relaxed font-light">
-              The premier cultural celebration of the School of Sciences at CHRIST (Deemed to be University), Bangalore. Fostering intellectual inquiry, stagecraft, and enduring student solidarity.
-            </p>
+            {/* Official Festival Motto & Slogan Graphic */}
+            <div className="flex flex-col items-center gap-4 max-w-2xl">
+              <p className="text-base sm:text-xl text-[#C7D1DD] leading-relaxed font-normal">
+                Motto: <span className="font-semibold text-[#FFFFFF]">&lsquo;Be the best&rsquo;</span> — Where all 7,000 students participate across 32 cultural competitions.
+              </p>
+
+              {/* Slogan Banner ("Flames to Flight") */}
+              <div className="relative w-full max-w-md h-24 sm:h-28 my-1 flex items-center justify-center">
+                <Image
+                  src="/blossoms_slogan.png"
+                  alt="From flames to flights, White Onyx Ignites"
+                  fill
+                  className="object-contain drop-shadow-lg"
+                  priority
+                />
+              </div>
+            </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+              {siteConfig.registrationUrl && (
+                <a
+                  href={siteConfig.registrationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  id="register-button"
+                  className="clay-btn-accent px-8 py-4 rounded-2xl font-black text-sm sm:text-base flex items-center gap-2.5 shadow-xl hover:scale-105 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+                >
+                  <Sparkles className="w-4 h-4 text-[#101827]" />
+                  <span>Register Now</span>
+                  <ExternalLink className="w-4 h-4 text-[#101827]" />
+                </a>
+              )}
+
               <Link
                 href="/events"
-                className="px-7 py-3.5 rounded-xl bg-[#C28854] text-[#140F0D] font-bold text-sm shadow-lg hover:bg-[#D4955B] transition-all flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-[#C28854]"
+                className="px-7 py-3.5 rounded-2xl bg-[#162032]/90 hover:bg-[#1E2B42] text-[#FFFFFF] border border-[#C7D1DD]/25 hover:border-[#D1FF42]/50 font-semibold text-sm transition-all flex items-center gap-2 shadow-lg backdrop-blur-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
               >
-                <span>Explore 5 Disciplines</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <span>Explore Events</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link
-                href="/archive/2025"
-                className="px-7 py-3.5 rounded-xl bg-[#1C1512]/80 text-[#FAF5F0] border border-[#FAF5F0]/20 hover:border-[#C28854] font-medium text-sm transition-colors flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#C28854]"
-              >
-                <Trophy className="w-4 h-4 text-[#C28854]" />
-                <span>2025 Historical Archive</span>
-              </Link>
-            </div>
 
-            {/* Minimalist Integrity Notice */}
-            <div className="pt-4 border-t border-[#FAF5F0]/10 flex items-center gap-2.5 text-xs text-[#C4B4A7]/80">
-              <ShieldCheck className="w-4 h-4 text-[#C28854] shrink-0" />
-              <span>
-                All 32 event criteria reflect verified perennial festival disciplines. Historical trophies belong to the 2024–2025 cycle.
-              </span>
+              <Link
+                href="/schedule"
+                className="px-7 py-3.5 rounded-2xl bg-[#162032]/70 hover:bg-[#1E2B42] text-[#C7D1DD] hover:text-[#FFFFFF] border border-[#C7D1DD]/15 font-semibold text-sm transition-all flex items-center gap-2 shadow-md backdrop-blur-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+              >
+                <Calendar className="w-4 h-4 text-[#D1FF42]" />
+                <span>Festival Schedule</span>
+              </Link>
             </div>
           </div>
         </HeroBackground>
       </section>
 
-      {/* 2. FESTIVAL MANIFESTO: High-End Minimalist Editorial Statement */}
-      <section className="py-24 border-t border-[#FAF5F0]/10 bg-[#100C0A]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-16">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#C28854] font-semibold block mb-3">
-              The Philosophy
+      {/* =========================================================
+          2. POSTERS / KNOW MORE SECTION
+          ========================================================= */}
+      <section id="posters-section" className="py-20 bg-[#0B101B] border-t border-[#C7D1DD]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
+          
+          <div className="space-y-3">
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#D1FF42]">
+              Official Handouts &amp; Guidelines
             </span>
-            <blockquote className="text-2xl sm:text-3xl font-serif text-[#FAF5F0] leading-snug">
-              &ldquo;Science provides the framework to observe and question reality; art provides the courage to express and reshape it.&rdquo;
-            </blockquote>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#FFFFFF] tracking-tight">
+              Know More About Blossoms 2025 Here!
+            </h2>
+            <p className="text-sm text-[#C7D1DD] max-w-xl mx-auto font-normal">
+              Access the official interactive Canva rulebook and the downloadable School of Sciences handbook.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-8 border-t border-[#FAF5F0]/10">
-            <div className="space-y-3">
-              <span className="text-xs font-mono font-bold text-[#C28854]">01 / COLLABORATIVE RIGOR</span>
-              <h3 className="text-lg font-serif text-[#FAF5F0]">Beyond the Laboratory</h3>
-              <p className="text-xs sm:text-sm text-[#C4B4A7] leading-relaxed">
-                From Computer Science to Forensic and Life Sciences, over 2,000 students step beyond mathematical formulas to stage theatre, craft poetry, and unroll original visual canvases.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            
+            {/* Poster 1: Official Rulebook */}
+            <a
+              href="https://www.canva.com/design/DAG3QRRsCDk/aPmAeYyCw9B-Q3pigaoNBQ/edit?utm_content=DAG3QRRsCDk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative rounded-3xl overflow-hidden bg-[#162032]/80 border border-[#C7D1DD]/20 hover:border-[#D1FF42]/60 shadow-xl transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+            >
+              <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#101827]">
+                <Image
+                  src="/blossoms_rulebook.png"
+                  alt="Blossoms 2025 Rulebook Poster"
+                  fill
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-5 bg-[#162032] border-t border-[#C7D1DD]/15 flex items-center justify-between">
+                <div className="text-left">
+                  <h3 className="font-bold text-sm text-[#FFFFFF] group-hover:text-[#D1FF42] transition-colors">
+                    Official Festival Rulebook
+                  </h3>
+                  <p className="text-xs text-[#C7D1DD]">Open Interactive Canva Guide</p>
+                </div>
+                <div className="p-2.5 rounded-xl bg-[#101827] text-[#D1FF42] group-hover:bg-[#D1FF42] group-hover:text-[#101827] transition-colors">
+                  <ExternalLink className="w-4 h-4" />
+                </div>
+              </div>
+            </a>
 
-            <div className="space-y-3">
-              <span className="text-xs font-mono font-bold text-[#C28854]">02 / PROGRESSION PATH</span>
-              <h3 className="text-lg font-serif text-[#FAF5F0]">Two-Stage Elevation</h3>
-              <p className="text-xs sm:text-sm text-[#C4B4A7] leading-relaxed">
-                Preliminary auditions held within Block 2 classrooms elevate the deanery&apos;s strongest talent into the university-wide finals on the Main Auditorium and Sky View stages.
-              </p>
-            </div>
+            {/* Poster 2: Blossoms Know More Guide */}
+            <a
+              href="/blossoms_knowmore.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative rounded-3xl overflow-hidden bg-[#162032]/80 border border-[#C7D1DD]/20 hover:border-[#D1FF42]/60 shadow-xl transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+            >
+              <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#101827]">
+                <Image
+                  src="/blossoms_knowmore.png"
+                  alt="Blossoms 2025 Know More Poster"
+                  fill
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-5 bg-[#162032] border-t border-[#C7D1DD]/15 flex items-center justify-between">
+                <div className="text-left">
+                  <h3 className="font-bold text-sm text-[#FFFFFF] group-hover:text-[#D1FF42] transition-colors">
+                    Blossoms &lsquo;Know More&rsquo; Handout
+                  </h3>
+                  <p className="text-xs text-[#C7D1DD]">Download Official PDF Document</p>
+                </div>
+                <div className="p-2.5 rounded-xl bg-[#101827] text-[#D1FF42] group-hover:bg-[#D1FF42] group-hover:text-[#101827] transition-colors">
+                  <FileText className="w-4 h-4" />
+                </div>
+              </div>
+            </a>
 
-            <div className="space-y-3">
-              <span className="text-xs font-mono font-bold text-[#C28854]">03 / ADJUDICATION</span>
-              <h3 className="text-lg font-serif text-[#FAF5F0]">Strict Objective Integrity</h3>
-              <p className="text-xs sm:text-sm text-[#C4B4A7] leading-relaxed">
-                32 competitive formats are judged by vetted external adjudicators, enforcing strict time limits, originality rules, and team synergy rubrics.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. THE FIVE DISCIPLINES: Minimalist Curated Index Roster */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="disciplines-heading">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-          <div>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#C28854] font-semibold block mb-2">
-              Perennial Pillars
+      {/* =========================================================
+          3. PREVIOUS EVENTS PHOTO MARQUEE
+          ========================================================= */}
+      <section id="events-hint" className="py-20 border-t border-[#C7D1DD]/10 overflow-hidden bg-[#101827]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
+          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#D1FF42] block mb-2">
+            Moments &amp; Memories
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#FFFFFF] tracking-tight">
+            Festival Highlights &amp; Stage Energy
+          </h2>
+        </div>
+
+        {/* Infinite Photo Marquee Track */}
+        <div className="relative w-full overflow-hidden py-4">
+          <div className="animate-marquee gap-6 flex">
+            {/* Set 1 */}
+            {MARQUEE_IMAGES.map((img, idx) => (
+              <div 
+                key={`m1-${idx}`} 
+                className="relative w-72 sm:w-80 h-48 sm:h-52 shrink-0 rounded-2xl overflow-hidden border border-[#C7D1DD]/20 shadow-lg bg-[#162032] group"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 768px) 288px, 320px"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex items-end">
+                  <span className="text-xs text-[#FFFFFF] font-medium">{img.alt}</span>
+                </div>
+              </div>
+            ))}
+            {/* Set 2 (for seamless infinite loop) */}
+            {MARQUEE_IMAGES.map((img, idx) => (
+              <div 
+                key={`m2-${idx}`} 
+                className="relative w-72 sm:w-80 h-48 sm:h-52 shrink-0 rounded-2xl overflow-hidden border border-[#C7D1DD]/20 shadow-lg bg-[#162032] group"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 768px) 288px, 320px"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex items-end">
+                  <span className="text-xs text-[#FFFFFF] font-medium">{img.alt}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee Registration Callout */}
+        <div className="max-w-3xl mx-auto px-4 mt-12 text-center space-y-4">
+          <p className="text-xl sm:text-2xl font-bold text-[#FFFFFF]">
+            Register now for the events, slots are open!
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            {siteConfig.registrationUrl && (
+              <a
+                href={siteConfig.registrationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="clay-btn-accent px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+              >
+                <span>Register for Slot</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            )}
+            <Link
+              href="/events"
+              className="px-6 py-3 rounded-xl bg-[#162032] hover:bg-[#1E2B42] text-[#FFFFFF] border border-[#C7D1DD]/25 font-semibold text-sm transition-all flex items-center gap-2"
+            >
+              <span>See All Events</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          4. ABOUT BLOSSOMS & VIDEO SECTION
+          ========================================================= */}
+      <section id="about-blossoms" className="py-24 bg-[#0B101B] border-t border-[#C7D1DD]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mb-12">
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#D1FF42] block mb-2">
+              The Heritage
             </span>
-            <h2 id="disciplines-heading" className="text-3xl sm:text-4xl font-serif text-[#FAF5F0]">
-              The Five Disciplines
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#FFFFFF] tracking-tight">
+              About Blossoms
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-[#C4B4A7] max-w-md">
-            Explore rules, evaluation rubrics, and team structures for all 32 official festival competitions.
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Column: Descriptive Content & Team Onyx Details */}
+            <div className="lg:col-span-7 space-y-8">
+              <p className="text-base sm:text-lg text-[#C7D1DD] leading-relaxed font-normal">
+                Blossoms is the intra-deanery cultural fest at Christ (Deemed To Be University) Bangalore with the motto &lsquo;Be the best&rsquo;. This is a unique venture where all 7,000 students of Christ University, Bangalore participate in a cultural event. The events are divided into five categories - Art, Theatre, Stage, Music &amp; Literary. Students compete in multiple events across these categories. The winners lay their hands on the Inter-Deanery trophy for Artistic Excellence and Service.
+              </p>
+
+              {/* Team Onyx Identity Card */}
+              <div className="p-6 sm:p-8 rounded-3xl bg-[#162032]/80 border border-[#C7D1DD]/20 shadow-xl space-y-5 backdrop-blur-md">
+                <div className="flex items-center justify-between border-b border-[#C7D1DD]/15 pb-4">
+                  <h3 className="text-xl font-bold text-[#FFFFFF]">Representing School of Sciences: Team Onyx</h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                  <div className="p-4 rounded-xl bg-[#101827] border border-[#C7D1DD]/15 space-y-1">
+                    <span className="text-[#D1FF42] font-mono font-bold uppercase">Team Name</span>
+                    <p className="font-bold text-sm text-[#FFFFFF]">Onyx</p>
+                    <p className="text-[#C7D1DD]">Strength, resilience &amp; polished excellence.</p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-[#101827] border border-[#C7D1DD]/15 space-y-1">
+                    <span className="text-[#D1FF42] font-mono font-bold uppercase">Team Color</span>
+                    <p className="font-bold text-sm text-[#FFFFFF]">White</p>
+                    <p className="text-[#C7D1DD]">Clarity, brilliance &amp; empowering unity.</p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-[#101827] border border-[#C7D1DD]/15 space-y-1">
+                    <span className="text-[#D1FF42] font-mono font-bold uppercase">Team Slogan</span>
+                    <p className="font-bold text-sm text-[#FFFFFF]">&ldquo;White Onyx Ignites&rdquo;</p>
+                    <p className="text-[#C7D1DD]">From flames to flights, White Onyx Ignites.</p>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-[#D1FF42] hover:text-[#FFFFFF] transition-colors"
+                  >
+                    <span>Read full School of Sciences Journey</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Autoplay Looping Festival Video */}
+            <div className="lg:col-span-5">
+              <div className="relative rounded-3xl overflow-hidden border border-[#C7D1DD]/25 shadow-2xl bg-[#101827] aspect-video sm:aspect-square flex items-center justify-center">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  className="w-full h-full object-cover"
+                  poster="/Assets/cult1.JPG"
+                >
+                  <source src="/blossoms-24.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p className="text-center text-xs text-[#C7D1DD]/70 mt-3 font-mono">
+                Blossoms Festival Reel Highlights
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          5. OUR ACHIEVEMENTS SECTION
+          ========================================================= */}
+      <section id="achievements" className="py-24 border-t border-[#C7D1DD]/10 bg-[#101827]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#D1FF42]">
+              Honors &amp; Accolades
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#FFFFFF] tracking-tight">
+              Our Achievements
+            </h2>
+            <p className="text-sm text-[#C7D1DD] font-normal">
+              Proud trophies earned by the School of Sciences student delegations in the university arena.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            
+            {/* Trophy 1: Procession */}
+            <div className="p-8 rounded-3xl bg-[#162032]/80 border border-[#C7D1DD]/20 shadow-xl flex flex-col items-center text-center space-y-4 hover:border-[#D1FF42]/40 transition-all hover:-translate-y-1">
+              <div className="relative w-32 h-32 flex items-center justify-center">
+                <Image
+                  src="/3rd.png"
+                  alt="3rd Place Trophy - Procession"
+                  fill
+                  className="object-contain drop-shadow-lg"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-[#FFFFFF]">Procession</h3>
+                <span className="inline-block mt-1 px-3 py-1 rounded-full text-xs font-bold font-mono bg-[#8D5B4C]/20 text-[#E6A18C] border border-[#8D5B4C]/40">
+                  Third Place
+                </span>
+              </div>
+              <p className="text-xs text-[#C7D1DD] leading-relaxed">
+                Spectacular deanery parade demonstrating unity, discipline, and scientific heritage.
+              </p>
+            </div>
+
+            {/* Trophy 2: 'We the Best' Trophy */}
+            <div className="p-8 rounded-3xl bg-[#162032]/90 border border-[#D1FF42]/30 shadow-2xl flex flex-col items-center text-center space-y-4 hover:border-[#D1FF42] transition-all hover:-translate-y-1 relative ring-1 ring-[#D1FF42]/20">
+              <div className="absolute -top-3.5 px-3 py-0.5 rounded-full bg-[#D1FF42] text-[#101827] text-[10px] font-black uppercase tracking-wider">
+                Premier Deanery Honor
+              </div>
+              <div className="relative w-32 h-32 flex items-center justify-center">
+                <Image
+                  src="/2nd.png"
+                  alt="2nd Place Trophy - We the Best"
+                  fill
+                  className="object-contain drop-shadow-lg"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-[#FFFFFF]">&lsquo;We the Best&rsquo; Trophy</h3>
+                <span className="inline-block mt-1 px-3 py-1 rounded-full text-xs font-bold font-mono bg-white/10 text-[#FFFFFF] border border-white/20">
+                  Second Place
+                </span>
+              </div>
+              <p className="text-xs text-[#C7D1DD] leading-relaxed">
+                Overall competitive excellence standing across all cultural and artistic events.
+              </p>
+            </div>
+
+            {/* Trophy 3: Inauguration */}
+            <div className="p-8 rounded-3xl bg-[#162032]/80 border border-[#C7D1DD]/20 shadow-xl flex flex-col items-center text-center space-y-4 hover:border-[#D1FF42]/40 transition-all hover:-translate-y-1">
+              <div className="relative w-32 h-32 flex items-center justify-center">
+                <Image
+                  src="/2nd.png"
+                  alt="2nd Place Trophy - Inauguration"
+                  fill
+                  className="object-contain drop-shadow-lg"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-[#FFFFFF]">Inauguration</h3>
+                <span className="inline-block mt-1 px-3 py-1 rounded-full text-xs font-bold font-mono bg-white/10 text-[#FFFFFF] border border-white/20">
+                  Second Place
+                </span>
+              </div>
+              <p className="text-xs text-[#C7D1DD] leading-relaxed">
+                Captivating inaugural stage presentation showcasing original concept and execution.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          6. EVENT CATEGORIES (THE FIVE DISCIPLINES)
+          ========================================================= */}
+      <section id="events" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="disciplines-heading">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+          <div>
+            <span className="text-xs uppercase tracking-[0.2em] text-[#D1FF42] font-mono font-semibold block mb-2">
+              Foundational Disciplines
+            </span>
+            <h2 id="disciplines-heading" className="text-3xl sm:text-5xl font-extrabold text-[#FFFFFF] tracking-tight">
+              Event Categories
+            </h2>
+          </div>
+          <p className="text-xs sm:text-sm text-[#C7D1DD] max-w-md font-normal leading-relaxed">
+            Explore rules, formats, and schedules for all 32 official festival competitions.
           </p>
         </div>
 
-        {/* Minimalist Interactive List */}
-        <div className="divide-y divide-[#FAF5F0]/10 border-y border-[#FAF5F0]/10">
-          {EVENT_CATEGORIES.map((category, index) => {
-            const indexStr = `0${index + 1}`;
-            return (
-              <Link
-                key={category.slug}
-                href={`/events/${category.slug}`}
-                className="group py-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-[#1C1512]/40 px-4 sm:px-6 -mx-4 sm:-mx-6 transition-all duration-200"
-              >
-                <div className="flex items-start md:items-center gap-6 md:gap-10">
-                  <span className="text-sm font-mono text-[#C28854] font-semibold">
-                    {indexStr}
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-xl sm:text-2xl font-serif font-medium text-[#FAF5F0] group-hover:text-[#C28854] transition-colors">
-                        {category.name}
-                      </h3>
-                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#1C1512] text-[#C4B4A7] border border-[#FAF5F0]/10">
-                        {category.events.length} Competitions
-                      </span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-[#C4B4A7] mt-1 max-w-xl">
-                      {category.tagline}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 text-xs font-semibold text-[#C4B4A7] group-hover:text-[#C28854] transition-colors">
-                  <span className="hidden sm:inline">View Category</span>
-                  <div className="w-8 h-8 rounded-full border border-[#FAF5F0]/15 flex items-center justify-center group-hover:border-[#C28854] group-hover:scale-110 transition-all">
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="mt-8 flex justify-end">
+        {/* Visual Category Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          {/* Card 1: Art */}
           <Link
-            href="/events"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-[#C28854] hover:underline"
+            href="/events/art"
+            className="group rounded-3xl overflow-hidden bg-[#162032]/80 border border-[#C7D1DD]/20 hover:border-[#D1FF42]/60 shadow-xl flex flex-col transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
           >
-            <span>Browse Full Directory of 32 Sub-Events</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#101827]">
+              <Image
+                src="/art.jpg"
+                alt="Art Category Hero"
+                fill
+                sizes="(max-width: 768px) 100vw, 380px"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#101827]/80 backdrop-blur-md border border-[#C7D1DD]/20 text-[11px] font-mono text-[#D1FF42] font-bold">
+                9 Events
+              </div>
+            </div>
+            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 className="text-2xl font-bold text-[#FFFFFF] group-hover:text-[#D1FF42] transition-colors">
+                  Art
+                </h3>
+                <p className="text-xs sm:text-sm text-[#C7D1DD] mt-2 line-clamp-2">
+                  Visual expression across traditional canvas, digital craft, sketching, rangoli and pot painting.
+                </p>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-[#C7D1DD]/10 text-xs font-bold text-[#D1FF42]">
+                <span>View Art Events</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </div>
           </Link>
+
+          {/* Card 2: Literary */}
+          <Link
+            href="/events/literary"
+            className="group rounded-3xl overflow-hidden bg-[#162032]/80 border border-[#C7D1DD]/20 hover:border-[#D1FF42]/60 shadow-xl flex flex-col transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+          >
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#101827]">
+              <Image
+                src="/literary.jpg"
+                alt="Literary Category Hero"
+                fill
+                sizes="(max-width: 768px) 100vw, 380px"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#101827]/80 backdrop-blur-md border border-[#C7D1DD]/20 text-[11px] font-mono text-[#D1FF42] font-bold">
+                8 Events
+              </div>
+            </div>
+            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 className="text-2xl font-bold text-[#FFFFFF] group-hover:text-[#D1FF42] transition-colors">
+                  Literary
+                </h3>
+                <p className="text-xs sm:text-sm text-[#C7D1DD] mt-2 line-clamp-2">
+                  Oratory, debate, creative writing, quiz, extempore, and rapid-fire verbal mastery.
+                </p>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-[#C7D1DD]/10 text-xs font-bold text-[#D1FF42]">
+                <span>View Literary Events</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 3: Music */}
+          <Link
+            href="/events/music"
+            className="group rounded-3xl overflow-hidden bg-[#162032]/80 border border-[#C7D1DD]/20 hover:border-[#D1FF42]/60 shadow-xl flex flex-col transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+          >
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#101827]">
+              <Image
+                src="/music.jpg"
+                alt="Music Category Hero"
+                fill
+                sizes="(max-width: 768px) 100vw, 380px"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#101827]/80 backdrop-blur-md border border-[#C7D1DD]/20 text-[11px] font-mono text-[#D1FF42] font-bold">
+                6 Events
+              </div>
+            </div>
+            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 className="text-2xl font-bold text-[#FFFFFF] group-hover:text-[#D1FF42] transition-colors">
+                  Music
+                </h3>
+                <p className="text-xs sm:text-sm text-[#C7D1DD] mt-2 line-clamp-2">
+                  Battle of the bands, Indian folk, acoustic harmonies, vocal solos, and electric instrumentation.
+                </p>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-[#C7D1DD]/10 text-xs font-bold text-[#D1FF42]">
+                <span>View Music Events</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 4: Theatre */}
+          <Link
+            href="/events/theatre"
+            className="group rounded-3xl overflow-hidden bg-[#162032]/80 border border-[#C7D1DD]/20 hover:border-[#D1FF42]/60 shadow-xl flex flex-col transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+          >
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#101827]">
+              <Image
+                src="/theater.jpg"
+                alt="Theatre Category Hero"
+                fill
+                sizes="(max-width: 768px) 100vw, 380px"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#101827]/80 backdrop-blur-md border border-[#C7D1DD]/20 text-[11px] font-mono text-[#D1FF42] font-bold">
+                5 Events
+              </div>
+            </div>
+            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 className="text-2xl font-bold text-[#FFFFFF] group-hover:text-[#D1FF42] transition-colors">
+                  Theatre
+                </h3>
+                <p className="text-xs sm:text-sm text-[#C7D1DD] mt-2 line-clamp-2">
+                  Street theatre (nukkad natak), proscenium drama, mime, mono acting, and cinematic short film.
+                </p>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-[#C7D1DD]/10 text-xs font-bold text-[#D1FF42]">
+                <span>View Theatre Events</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 5: Dance */}
+          <Link
+            href="/events/dance"
+            className="group rounded-3xl overflow-hidden bg-[#162032]/80 border border-[#C7D1DD]/20 hover:border-[#D1FF42]/60 shadow-xl flex flex-col transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42] sm:col-span-2 lg:col-span-1"
+          >
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#101827]">
+              <Image
+                src="/dance.jpg"
+                alt="Dance Category Hero"
+                fill
+                sizes="(max-width: 768px) 100vw, 380px"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#101827]/80 backdrop-blur-md border border-[#C7D1DD]/20 text-[11px] font-mono text-[#D1FF42] font-bold">
+                4 Events
+              </div>
+            </div>
+            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 className="text-2xl font-bold text-[#FFFFFF] group-hover:text-[#D1FF42] transition-colors">
+                  Dance
+                </h3>
+                <p className="text-xs sm:text-sm text-[#C7D1DD] mt-2 line-clamp-2">
+                  Classical dance group, Indian folk dance, dance duet, and high-energy themed ensemble choreographies.
+                </p>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-[#C7D1DD]/10 text-xs font-bold text-[#D1FF42]">
+                <span>View Dance Events</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </div>
+          </Link>
+
         </div>
       </section>
 
-      {/* 4. HISTORICAL MILESTONE: Team Onyx Legacy Dossier */}
-      <section className="py-20 bg-[#100C0A] border-t border-[#FAF5F0]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#1C1512]/60 border border-[#FAF5F0]/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-            <div className="max-w-2xl space-y-4">
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#C28854] text-[#140F0D]">
-                  2024–2025 ARCHIVE
-                </span>
-                <span className="text-xs text-[#C4B4A7] font-mono">
-                  Deanery Cycle
-                </span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-serif text-[#FAF5F0]">
-                {archive2025.teamName}: &ldquo;{archive2025.teamSlogan}&rdquo;
+      {/* =========================================================
+          7. REGISTRATION BOTTOM BANNER
+          ========================================================= */}
+      {siteConfig.registrationUrl && (
+        <section className="py-16 bg-gradient-to-r from-[#0251B0] via-[#101827] to-[#162032] border-t border-[#C7D1DD]/15">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div>
+              <span className="text-xs uppercase tracking-[0.2em] text-[#D1FF42] font-mono font-bold block mb-1">
+                Represent the School of Sciences
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#FFFFFF]">
+                Ready to compete in Blossoms 2025?
               </h2>
-              <p className="text-xs sm:text-sm text-[#C4B4A7] leading-relaxed">
-                In the 2024–2025 university fest season, the School of Sciences competed under the mantle of Team Onyx, securing runner-up accolades in the university Inauguration and the coveted &apos;We the Best&apos; Trophy.
+              <p className="text-xs sm:text-sm text-[#C7D1DD] mt-1">
+                Fill the official registration form to confirm your slot in prelims.
               </p>
-              <div className="flex flex-wrap gap-4 pt-2 text-xs text-[#FAF5F0]">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#140F0D] border border-[#FAF5F0]/10">
-                  <Award className="w-3.5 h-3.5 text-[#C28854]" />
-                  <span>2nd Place: University Inauguration</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#140F0D] border border-[#FAF5F0]/10">
-                  <Award className="w-3.5 h-3.5 text-[#C28854]" />
-                  <span>2nd Place: &apos;We the Best&apos; Trophy</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#140F0D] border border-[#FAF5F0]/10">
-                  <Award className="w-3.5 h-3.5 text-[#C28854]" />
-                  <span>3rd Place: Deanery Procession</span>
-                </div>
-              </div>
             </div>
-
-            <div className="shrink-0 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/archive/2025"
-                className="px-6 py-3 rounded-xl bg-[#C28854] text-[#140F0D] font-bold text-xs hover:bg-[#D4955B] transition-colors flex items-center justify-center gap-2"
-              >
-                <span>Enter 2025 Dossier</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <a
+              href={siteConfig.registrationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="clay-btn-accent px-8 py-4 rounded-2xl font-black text-sm flex items-center gap-2 shrink-0 shadow-2xl hover:scale-105 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D1FF42]"
+            >
+              <span>Register Now</span>
+              <ExternalLink className="w-4 h-4" />
+            </a>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* 5. ACCESS GATEWAYS: Schedule & Standings */}
-      <section className="py-20 border-t border-[#FAF5F0]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Schedule Gateway */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#1C1512]/50 border border-[#FAF5F0]/10 flex flex-col justify-between space-y-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#C28854] uppercase tracking-wider">
-                  <Calendar className="w-4 h-4" />
-                  <span>Chronology & Locations</span>
-                </div>
-                <h3 className="text-2xl font-serif text-[#FAF5F0]">
-                  Festival Schedule
-                </h3>
-                <p className="text-xs sm:text-sm text-[#C4B4A7] leading-relaxed">
-                  Review the chronological sequence of 32 preliminary and final rounds from the 2024–2025 festival cycle across Block 1, Block 2, and Central Block.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-[#FAF5F0]/10">
-                <Link
-                  href="/schedule"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-[#C28854] hover:underline"
-                >
-                  <span>Open Festival Timeline</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Standings Gateway */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#1C1512]/50 border border-[#FAF5F0]/10 flex flex-col justify-between space-y-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#C28854] uppercase tracking-wider">
-                  <Trophy className="w-4 h-4" />
-                  <span>Student Accolades</span>
-                </div>
-                <h3 className="text-2xl font-serif text-[#FAF5F0]">
-                  Competition Winners
-                </h3>
-                <p className="text-xs sm:text-sm text-[#C4B4A7] leading-relaxed">
-                  Access 33 verified podium standings from the 2024–2025 festival cycle, curated with strict student data privacy standards.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-[#FAF5F0]/10">
-                <Link
-                  href="/winners"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-[#C28854] hover:underline"
-                >
-                  <span>Browse Winner Standings</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

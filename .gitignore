@@ -16,18 +16,8 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Markdown files: ignore all .md files except README
+# Markdown documentation files except README
 *.md
-*.MD
 **/*.md
-**/*.MD
 !README.md
-!README.MD
 !**/README.md
-!**/README.MD
-!readme.md
-!readme.MD
-!**/readme.md
-!**/readme.MD
-!Readme.md
-!**/Readme.md

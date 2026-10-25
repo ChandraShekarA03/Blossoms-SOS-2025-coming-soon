@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 // Dynamically import GhostFibers with SSR disabled for WebGL canvas
 const GhostFibers = dynamic(() => import('./GhostFibers'), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-[#140F0D]" aria-hidden="true" />,
+  loading: () => <div className="absolute inset-0 bg-[#101827]" aria-hidden="true" />,
 });
 
 interface HeroBackgroundProps {
@@ -16,22 +16,22 @@ interface HeroBackgroundProps {
 /**
  * HeroBackground
  * 
- * Minimalist, high-end Corporate Brown Hero with React Bits GhostFibers.
+ * Minimalist, high-end Electric Blue & Volt Lime Hero with React Bits GhostFibers.
  * Palette:
- * - Base: Deep Espresso Obsidian (#140F0D)
- * - Fiber Glow: Warm Bronze (#C28854)
- * - Fiber Highlights: Pale Champagne (#FAF5F0)
- * - Secondary: Deep Roast (#1E1512)
+ * - Base: Ink Navy (#101827)
+ * - Fiber Glow: Volt Lime (#D1FF42)
+ * - Fiber Highlights: Blue Grey (#C7D1DD)
+ * - Secondary: Elite Blue (#0251B0)
  */
 export function HeroBackground({ children }: HeroBackgroundProps) {
   return (
-    <div className="relative w-full min-h-[640px] md:min-h-[720px] flex items-center justify-center overflow-hidden bg-[#140F0D]">
+    <div className="relative w-full min-h-[640px] md:min-h-[720px] flex items-center justify-center overflow-hidden bg-[#101827]">
       {/* Layer 0: React Bits GhostFibers Canvas */}
-      <div className="absolute inset-0 z-0 pointer-events-auto opacity-75">
+      <div className="absolute inset-0 z-0 pointer-events-auto opacity-80">
         <GhostFibers
-          glowColor="#C28854"
-          lineColor="#FAF5F0"
-          secondaryColor="#1E1512"
+          glowColor="#D1FF42"
+          lineColor="#C7D1DD"
+          secondaryColor="#0251B0"
           gradient="depth"
           layers={3}
           twist={1.2}
@@ -52,7 +52,7 @@ export function HeroBackground({ children }: HeroBackgroundProps) {
       <div 
         className="absolute inset-0 z-1 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(20, 15, 13, 0.2) 0%, rgba(20, 15, 13, 0.65) 75%, #140F0D 100%)',
+          background: 'radial-gradient(circle at 50% 50%, rgba(16, 24, 39, 0.2) 0%, rgba(16, 24, 39, 0.7) 75%, #101827 100%)',
         }}
         aria-hidden="true"
       />

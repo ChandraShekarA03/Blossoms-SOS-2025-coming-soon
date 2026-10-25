@@ -11,17 +11,17 @@ export const metadata: Metadata = {
 
 export default function WinnersPage() {
   return (
-    <div className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-28 pb-16 md:pt-36 md:pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#101827] text-[#FFFFFF]">
       {/* Page Header */}
       <div className="max-w-3xl mb-12">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1C1512] border border-[#FAF5F0]/15 text-xs font-bold text-[#C28854] mb-4">
-          <Trophy className="w-3.5 h-3.5" />
-          <span>Competition Standings & Results</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#162032] border border-[#C7D1DD]/20 text-xs font-bold text-[#D1FF42] mb-4 shadow-sm">
+          <Trophy className="w-3.5 h-3.5 text-[#D1FF42]" />
+          <span>Competition Standings &amp; Results</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-serif text-[#FAF5F0] tracking-tight leading-tight">
-          Competition Winners & Honors.
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-[#FFFFFF] tracking-tight leading-tight">
+          Competition Winners &amp; Honors.
         </h1>
-        <p className="mt-4 text-base text-[#C4B4A7] leading-relaxed font-light">
+        <p className="mt-4 text-base text-[#C7D1DD] leading-relaxed font-normal">
           Celebrating student achievement across Art, Literary, Music, Theatre, and Dance preliminary rounds. All records below strictly represent the 2024–2025 festival cycle.
         </p>
       </div>

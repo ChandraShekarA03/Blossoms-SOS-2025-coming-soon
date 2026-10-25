@@ -25,7 +25,13 @@ export const metadata: Metadata = {
   description: siteConfig.defaultDescription,
   metadataBase: new URL(siteConfig.canonicalUrl),
   icons: {
-    icon: '/blossoms_logo.png',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/blossoms_logo.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/blossoms_logo.png',
   },
   openGraph: {
     title: `${siteConfig.shortName} | ${siteConfig.institution}`,
@@ -44,11 +50,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${sansFont.variable} ${displayFont.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#140F0D] text-[#FAF5F0] antialiased selection:bg-[#C28854] selection:text-[#140F0D]">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="alternate icon" href="/favicon.png" type="image/png" />
+      </head>
+      <body className="min-h-screen flex flex-col bg-[#101827] text-[#FFFFFF] antialiased selection:bg-[#D1FF42] selection:text-[#101827]">
+
         {/* Skip to Content for WCAG 2.2 AA Keyboard Accessibility */}
         <a 
           href="#main-content" 
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[#C28854] text-[#140F0D] font-bold rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D4955B]"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[#D1FF42] text-[#101827] font-bold rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0251B0]"
         >
           Skip to main content
         </a>

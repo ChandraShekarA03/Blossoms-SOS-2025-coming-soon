@@ -13,6 +13,7 @@ interface SpectralDrapeBoundaryProps {
  * 
  * Clean isolation boundary for the React Bits Pro Spectral Drape component.
  * Free of wipeout elements, blocking overlays, and CPU thrashing.
+ * Color Tokens: Electric Blue (#0251B0), Volt Lime (#D1FF42), Ink Navy (#101827).
  */
 export function SpectralDrapeBoundary({
   className = '',
@@ -36,7 +37,7 @@ export function SpectralDrapeBoundary({
   if (!hasMounted) {
     return (
       <div 
-        className={`absolute inset-0 pointer-events-none bg-[#080E24] ${className}`} 
+        className={`absolute inset-0 pointer-events-none bg-[#101827] ${className}`} 
         aria-hidden="true" 
       />
     );
@@ -46,13 +47,13 @@ export function SpectralDrapeBoundary({
   if (prefersReducedMotion) {
     return (
       <div 
-        className={`absolute inset-0 pointer-events-none bg-radial from-[#0E193C] via-[#080E24] to-[#040712] opacity-80 ${className}`} 
+        className={`absolute inset-0 pointer-events-none bg-radial from-[#162032] via-[#101827] to-[#0B101B] opacity-80 ${className}`} 
         aria-hidden="true" 
       />
     );
   }
 
-  // Ambient Fallback with Elite Blue (#0251B0) and Volt Lime (#D1FF42)
+  // Fallback when Spectral Drape is not installed or WebGL fails
   if (!isSpectralDrapeInstalled || !webGLSupported) {
     return (
       <div 
@@ -60,18 +61,17 @@ export function SpectralDrapeBoundary({
         aria-hidden="true"
         data-testid="spectral-drape-fallback"
       >
-        {/* Elite Blue ambient glow */}
+        {/* Subtle, restrained ambient backdrop with zero GPU thrashing */}
         <div 
-          className="absolute -top-1/4 left-1/3 -translate-x-1/2 w-[650px] h-[650px] rounded-full opacity-30 blur-[130px]"
+          className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-20 blur-[120px]"
           style={{
-            background: 'radial-gradient(circle, #0251B0 0%, #080E24 70%)',
+            background: 'radial-gradient(circle, #0251B0 0%, #101827 70%)',
           }}
         />
-        {/* Volt Lime subtle high-energy accent */}
         <div 
-          className="absolute -bottom-1/4 right-1/4 w-[450px] h-[450px] rounded-full opacity-15 blur-[120px]"
+          className="absolute -bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-[100px]"
           style={{
-            background: 'radial-gradient(circle, #D1FF42 0%, transparent 60%)',
+            background: 'radial-gradient(circle, #D1FF42 0%, transparent 65%)',
           }}
         />
       </div>
@@ -82,6 +82,8 @@ export function SpectralDrapeBoundary({
     <div 
       className={`absolute inset-0 pointer-events-none ${className}`}
       aria-hidden="true"
-    />
+    >
+      {/* Real Spectral Drape mount point */}
+    </div>
   );
 }

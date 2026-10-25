@@ -1,26 +1,30 @@
 import { SiteConfig } from '@/types/site';
 
 /**
- * Blossoms SOS Global Site Configuration
+ * Blossoms SOS 2025 Global Site Configuration
  * 
- * Configures global metadata, active edition selection, and external links.
- * Changing the active edition switches the primary landing view without code rewriting.
+ * Configures global metadata, branding, and official event links.
  */
 export const siteConfig: SiteConfig = {
-  name: 'Blossoms School of Sciences',
-  shortName: 'Blossoms SOS',
+  name: 'Blossoms SOS 2025',
+  shortName: 'Blossoms 2025',
   institution: 'CHRIST (Deemed to be University), Bangalore',
   faculty: 'School of Sciences',
-  tagline: 'Science, Creativity & Student Expression',
-  defaultDescription: 'The premier annual cultural festival of the School of Sciences at CHRIST (Deemed to be University), Bangalore.',
+  tagline: 'Be the Best • From Flames to Flights, White Onyx Ignites',
+  defaultDescription: 'Blossoms is the intra-deanery cultural fest at Christ (Deemed To Be University) Bangalore with the motto ‘Be the best’. School of Sciences, Team Onyx.',
   
-  // Active edition toggle: Switch between 'upcoming' and '2025'
-  activeEditionYear: 'upcoming',
-  availableEditions: ['upcoming', '2025'],
+  activeEditionYear: '2025',
+  availableEditions: ['2025'],
   
   canonicalUrl: 'https://blossomssos2025.vercel.app',
+  registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeFKorn7aP-rWXOkLGzED0MBoe9TDMcE8Rzf-tjaJrBP936zA/viewform?usp=sharing&ouid=114906650785065612305',
+  rulebookUrl: 'https://www.canva.com/design/DAG3QRRsCDk/aPmAeYyCw9B-Q3pigaoNBQ/edit?utm_content=DAG3QRRsCDk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton',
+  knowmorePdfUrl: '/blossoms_knowmore.pdf',
+  contactEmail: 'blossoms.sos@christuniversity.in',
+  
   socialLinks: {
-    instagram: 'https://instagram.com/christ_university_bangalore',
-    youtube: 'https://youtube.com',
+    instagram: 'https://www.instagram.com/blossoms_sos/?hl=en',
+    facebook: 'https://www.facebook.com/www.christuniversity.in',
+    linkedin: 'https://www.linkedin.com/school/christ-university-bangalore/posts/?feedView=all',
   },
 };

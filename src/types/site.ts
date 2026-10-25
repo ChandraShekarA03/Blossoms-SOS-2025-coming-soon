@@ -45,8 +45,14 @@ export interface SiteConfig {
   activeEditionYear: string;
   availableEditions: string[];
   canonicalUrl: string;
+  registrationUrl?: string;
+  rulebookUrl?: string;
+  knowmorePdfUrl?: string;
+  contactEmail?: string;
   socialLinks: {
     instagram?: string;
+    facebook?: string;
+    linkedin?: string;
     youtube?: string;
     github?: string;
   };
